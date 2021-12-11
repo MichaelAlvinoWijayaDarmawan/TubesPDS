@@ -5,7 +5,7 @@ import requests
 import matplotlib.pyplot as plt
 
 #Read Data
-url = 'https://healthdata.gov/api/views/usvm-fdmd/rows.csv?accessType=DOWNLOAD'
+url = 'https://data.cityofnewyork.us/api/views/825b-niea/rows.csv?accessType=DOWNLOAD'
 s = requests.get(url).content
 df = pd.read_csv(io.StringIO(s.decode('utf-8')))
 
