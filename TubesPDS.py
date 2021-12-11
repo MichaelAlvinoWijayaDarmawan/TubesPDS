@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 #Read Data
 url = ''
-s=requests.get(url).content
-df=pd.read_csv(io.StringIO(s.decode('utf-8')))
+s = requests.get(url).content
+df = pd.read_csv(io.StringIO(s.decode('utf-8')))
 
 
 # Checking the missing values
