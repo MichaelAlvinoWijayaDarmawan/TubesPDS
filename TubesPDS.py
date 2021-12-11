@@ -18,3 +18,7 @@ df_allGrades = df.loc[df['Grade'] == 'All Grades']
 
 #generate tabel bukan all grades
 df_nonAllGrades = df.loc[df['Grade'] != 'All Grades']
+
+#ganti ke CSV
+df_nonAllGrades.to_csv('nonAllGrades.csv',index=False)
+df_allGrades.to_csv('allGrades.csv',index=False)
