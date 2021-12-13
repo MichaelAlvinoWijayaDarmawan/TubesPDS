@@ -77,3 +77,33 @@ plt.xlabel('Year')
 plt.ylabel('Number Tested')
 plt.show()
 
+#Grade - Category (Grades, Category Asian)  ~ Mean Scale Score,Year~~~~~~~~~~~~~~~~~~~~~~~
+df_grades = df[(df.Grade != "All Grades")]
+df_grades_asian = df[(df.Grade != "All Grades") & (df.Category == "Asian")]
+df_grades_black = df[(df.Grade != "All Grades") & (df.Category == "Black")]
+df_grades_hispanic = df[(df.Grade != "All Grades") & (df.Category == "Hispanic")]
+df_grades_white = df[(df.Grade != "All Grades") & (df.Category == "White")]
+
+#Lineplot Asian
+grades_2006_asian = df_grades_asian[(df_grades_asian.Year == 2006)]
+grades_2007_asian = df_grades_asian[(df_grades_asian.Year == 2007)]
+grades_2008_asian = df_grades_asian[(df_grades_asian.Year == 2008)]
+grades_2009_asian = df_grades_asian[(df_grades_asian.Year == 2009)]
+grades_2010_asian = df_grades_asian[(df_grades_asian.Year == 2010)]
+grades_2011_asian = df_grades_asian[(df_grades_asian.Year == 2011)]
+
+plt.plot(grades_2006_asian.Grade, grades_2006_asian.Mean_Scale_Score, label = "2006")
+plt.plot(grades_2007_asian.Grade, grades_2007_asian.Mean_Scale_Score, label = "2007")
+plt.plot(grades_2008_asian.Grade, grades_2008_asian.Mean_Scale_Score, label = "2008")
+plt.plot(grades_2009_asian.Grade, grades_2009_asian.Mean_Scale_Score, label = "2009")
+plt.plot(grades_2010_asian.Grade, grades_2010_asian.Mean_Scale_Score, label = "2010")
+plt.plot(grades_2011_asian.Grade, grades_2011_asian.Mean_Scale_Score, label = "2011")
+
+plt.legend()
+plt.title('Grades per Year ~ Mean Scale Score ~ Asian')
+plt.xlabel('Grade')
+plt.ylabel('Mean Scale Score')
+plt.show()
+
+
+
