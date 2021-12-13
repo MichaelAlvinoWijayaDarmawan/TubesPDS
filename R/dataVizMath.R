@@ -11,11 +11,6 @@ str(mathAllGrades_data)
 #ganti menjadi factor
 mathAllGrades_data$Year <- as.factor(mathAllGrades_data$Year)
 
-#memberikan urutan data dengan dplyr
-#ordered_wl <- word_list_data %>% arrange(desc(word_list_data$freq))
-#ordered_wlc <- word_list_cleaned %>% arrange(desc(word_list_cleaned$freq))
-#ordered_wlp <- word_list_planet %>% arrange(desc(word_list_planet$freq))
-
 #membuat jumlah tes per tahunnya untuk seluruh grade
 ggplot(mathAllGrades_data, aes(fill=Category,x=Year,y=Number.Tested)) +
   geom_bar(position="dodge", stat="identity")+
@@ -28,6 +23,56 @@ dataAsian = filter(mathAllGrades_data, mathAllGrades_data$Category == 'Asian')
 dataBlack = filter(mathAllGrades_data, mathAllGrades_data$Category == 'Black')
 dataHispanic = filter(mathAllGrades_data, mathAllGrades_data$Category == 'Hispanic')
 dataWhite = filter(mathAllGrades_data, mathAllGrades_data$Category == 'White')
+
+#Filter data per tahunnya
+data2006 = filter(mathAllGrades_data, mathAllGrades_data$Year == '2006')
+data2007 = filter(mathAllGrades_data, mathAllGrades_data$Year == '2007')
+data2008 = filter(mathAllGrades_data, mathAllGrades_data$Year == '2008')
+data2009 = filter(mathAllGrades_data, mathAllGrades_data$Year == '2009')
+data2010 = filter(mathAllGrades_data, mathAllGrades_data$Year == '2010')
+data2011 = filter(mathAllGrades_data, mathAllGrades_data$Year == '2011')
+
+#==================================================================================================================#
+
+#melihat statical count untuk kategori rasial
+summary(dataAsian$Number.Tested)
+summary(dataBlack$Number.Tested)
+summary(dataHispanic$Number.Tested)
+summary(dataWhite$Number.Tested)
+
+#seluruh data
+ggplot(mathAllGrades_data, aes(x = Category,y = Number.Tested))+
+  geom_boxplot(fill="#fcba03")+
+  xlab("Kategori Rasial")+
+  ylab("Jumlah Pendaftar")+
+  ggtitle("Boxplot Jumlah Pendaftar Tes Matematika Bedasarkan Kategori Ras")+
+  scale_fill_brewer(palette="Set2")
+
+#data hanya asian dan white
+ggplot(rbind(dataAsian,dataWhite), aes(x = Category,y = Number.Tested))+
+  geom_boxplot(fill="#fcba03")+
+  xlab("Kategori Rasial")+
+  ylab("Jumlah Pendaftar")+
+  ggtitle("Boxplot Jumlah Pendaftar Tes Matematika Bedasarkan Kategori Ras (Asian dan White)")+
+  scale_fill_brewer(palette="Set2")
+
+#melihat statical count untuk tiap tahun
+summary(data2006$Number.Tested)
+summary(data2007$Number.Tested)
+summary(data2008$Number.Tested)
+summary(data2009$Number.Tested)
+summary(data2010$Number.Tested)
+summary(data2011$Number.Tested)
+
+#melihat data yang berhasil (level 3 dan 4)
+summary(dataAsian$Level.3.4...1)
+summary(dataBlack$Level.3.4...1)
+summary(dataHispanic$Level.3.4...1)
+summary(dataWhite$Level.3.4...1)
+
+#merge all data Category AVG
+df_mergedCategoryAVG <- do.call("rbind", list(df_allAsianAverage,df_allBlackAverage,df_allHispanicAverage,df_allWhiteAverage))
+df_mergedYearAVG <- do.call("rbind", list(df_all2006Average,df_all2007Average,df_all2008Average,df_all2009Average,df_all2010Average,df_all2011Average))
 
 #buat barplot masing-masing kategori
 ggplot(dataAsian, aes(x=Year,y=Number.Tested)) +
@@ -49,7 +94,7 @@ ggplot(dataHispanic, aes(x=Year,y=Number.Tested)) +
   ggtitle('Jumlah Tes Per Tahun bedasarkan Kategori Hispanic')+
   xlab('Tahun')+
   ylab('Jumlah Tes')+
-  coord_cartesian(ylim=c(160000,175000))
+  coord_cartesian(ylim=c(160000,180000))
 
 ggplot(dataWhite, aes(x=Year,y=Number.Tested)) +
   geom_bar(position="dodge", stat="identity", fill="orange")+
@@ -136,3 +181,7 @@ ggplot(df_allParticipatedMergedMelted, aes(fill=Category, y=value, x=variable)) 
   ylab('Jumlah Peserta (dalam ribu)')+
   scale_y_continuous(labels = multi_format_1000(), breaks = seq(0,12000000,by=100000))+
   scale_x_discrete(labels = PesertaLabs )
+
+#=======================================================================================#
+# Bagian predictive analysis
+
