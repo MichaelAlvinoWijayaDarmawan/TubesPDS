@@ -29,7 +29,7 @@ df.isnull().sum()
 #Grade - Category (All Grades, All Category) ~ Number Tested, Year~~~~~~~~~~~~~~~~~~~~~~
 
 df_allgrades = df[(df.Grade == "All Grades")]
-df_allgrades_asian = df_allgrades[(df_allgrades.Category == "Asian")]
+df_allgrades_asian = df_allgrades[(df.Category == "Asian")]
 df_allgrades_black = df_allgrades[(df_allgrades.Category == "Black")]
 df_allgrades_hispanic = df_allgrades[(df_allgrades.Category == "Hispanic")]
 df_allgrades_white = df_allgrades[(df_allgrades.Category == "White")]
@@ -42,6 +42,8 @@ sns.boxplot(df_allgrades_white.Category, df_allgrades_white.Number_Tested)
 #All
 sns.boxplot(df_allgrades.Category, df_allgrades.Number_Tested)
 plt.title('All Grades per Year ~ Number Tested')
+plt.xlabel('Category')
+plt.ylabel('Number Tested')
 plt.show()
 
 #Lineplot
@@ -115,7 +117,7 @@ plt.show()
 #Lineplot All Grades Asian
 plt.plot(df_allgrades_asian.Year, df_allgrades_asian.Mean_Scale_Score, label = "All Grades")
 plt.title('All Grades per Year ~ Mean Scale Score ~ Asian')
-plt.xlabel('Grade')
+plt.xlabel('Year')
 plt.ylabel('Mean Scale Score')
 plt.show()
 
