@@ -13,14 +13,16 @@ df.columns = [c.replace(' ', '_') for c in df.columns]
 df.columns = [c.replace('#', 'H') for c in df.columns]
 df.columns = [c.replace('%', 'P') for c in df.columns]
 
-#Change Data Type
-for col in ['Grade', 'Year', 'Category']:
-    df[col] = df[col].astype('category')
 
 #Check Data Type
 df.dtypes
 
-# Checking the missing values
+#Change Data Type
+for col in ['Grade', 'Year', 'Category']:
+    df[col] = df[col].astype('category')
+
+
+# Check Null
 df.isnull().sum()
 
 #Explore Data----------------------------------------------------------------------------------
@@ -79,10 +81,7 @@ plt.show()
 
 #Grade - Category (Grades, Category Asian)  ~ Mean Scale Score,Year~~~~~~~~~~~~~~~~~~~~~~~
 df_grades = df[(df.Grade != "All Grades")]
-df_grades_asian = df[(df.Grade != "All Grades") & (df.Category == "Asian")]
-df_grades_black = df[(df.Grade != "All Grades") & (df.Category == "Black")]
-df_grades_hispanic = df[(df.Grade != "All Grades") & (df.Category == "Hispanic")]
-df_grades_white = df[(df.Grade != "All Grades") & (df.Category == "White")]
+df_grades_asian = df_grades[(df.Category == "Asian")]
 
 #Lineplot Asian
 grades_2006_asian = df_grades_asian[(df_grades_asian.Year == 2006)]
