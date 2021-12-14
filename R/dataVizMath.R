@@ -6,6 +6,13 @@ library(ggplot2)
 mathAllGrades_data <- read.csv("allGrades.csv")
 mathNonAllGrades_data <- read.csv("nonAllGrades.csv")
 
+mathAllData <- rbind(mathAllGrades_data,mathNonAllGrades_data)
+
+ggplot(mathAllData, aes(x=Number.Tested)) + 
+  geom_boxplot()+
+  ggtitle('Boxplot Jumlah Seluruh Peserta Tes')+
+  xlab('Jumlah Peserta (dalam ribu)')
+
 str(mathAllGrades_data)
 
 #ganti menjadi factor
@@ -32,6 +39,66 @@ data2009 = filter(mathAllGrades_data, mathAllGrades_data$Year == '2009')
 data2010 = filter(mathAllGrades_data, mathAllGrades_data$Year == '2010')
 data2011 = filter(mathAllGrades_data, mathAllGrades_data$Year == '2011')
 
+ggplot(mathAllGrades_data, aes(x=Category,y=Number.Tested)) + 
+  geom_boxplot(fill="orange")+
+  ggtitle('Boxplot Jumlah Seluruh Peserta Tes Untuk Tiap Kategori')+
+  xlab('Kategori')+
+  ylab("Jumlah Peserta")
+
+ggplot(filter(mathNonAllGrades_data, mathNonAllGrades_data$Grade == '3'), aes(x=Category,y=Number.Tested)) + 
+  geom_boxplot(fill="orange")+
+  ggtitle('Boxplot Jumlah Seluruh Peserta Tes Untuk Grade 3')+
+  xlab('Kategori')+
+  ylab("Jumlah Peserta")
+
+ggplot(filter(mathNonAllGrades_data, mathNonAllGrades_data$Grade == '4'), aes(x=Category,y=Number.Tested)) + 
+  geom_boxplot(fill="orange")+
+  ggtitle('Boxplot Jumlah Seluruh Peserta Tes Untuk Grade 4')+
+  xlab('Kategori')+
+  ylab("Jumlah Peserta")
+
+ggplot(filter(mathNonAllGrades_data, mathNonAllGrades_data$Grade == '5'), aes(x=Category,y=Number.Tested)) + 
+  geom_boxplot(fill="orange")+
+  ggtitle('Boxplot Jumlah Seluruh Peserta Tes Untuk Grade 5')+
+  xlab('Kategori')+
+  ylab("Jumlah Peserta")
+
+ggplot(filter(mathNonAllGrades_data, mathNonAllGrades_data$Grade == '6'), aes(x=Category,y=Number.Tested)) + 
+  geom_boxplot(fill="orange")+
+  ggtitle('Boxplot Jumlah Seluruh Peserta Tes Untuk Grade 6')+
+  xlab('Kategori')+
+  ylab("Jumlah Peserta")
+
+ggplot(filter(mathNonAllGrades_data, mathNonAllGrades_data$Grade == '7'), aes(x=Category,y=Number.Tested)) + 
+  geom_boxplot(fill="orange")+
+  ggtitle('Boxplot Jumlah Seluruh Peserta Tes Untuk Grade 7')+
+  xlab('Kategori')+
+  ylab("Jumlah Peserta")
+
+ggplot(filter(mathNonAllGrades_data, mathNonAllGrades_data$Grade == '8'), aes(x=Category,y=Number.Tested)) + 
+  geom_boxplot(fill="orange")+
+  ggtitle('Boxplot Jumlah Seluruh Peserta Tes Untuk Grade 8')+
+  xlab('Kategori')+
+  ylab("Jumlah Peserta")
+
+#remove outliers
+remove_outliers <- function(x, na.rm = TRUE, ...) {
+  qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
+  H <- 1.5 * IQR(x, na.rm = na.rm)
+  y <- x
+  y[x < (qnt[1] - H)] <- NA
+  y[x > (qnt[2] + H)] <- NA
+  y
+}
+
+#data khusus
+grade5 <- filter(mathNonAllGrades_data, mathNonAllGrades_data$Grade == '5')
+grade6 <- filter(mathNonAllGrades_data, mathNonAllGrades_data$Grade == '6')
+grade8 <- filter(mathNonAllGrades_data, mathNonAllGrades_data$Grade == '8')
+
+cleanedData_grade5 <- as.data.frame(remove_outliers(grade5$Number.Tested))
+cleanedData_grade6 <- as.data.frame(remove_outliers(grade6$Number.Tested))
+cleanedData_grade8 <- as.data.frame(remove_outliers(grade8$Number.Tested))
 #==================================================================================================================#
 
 #melihat statical count untuk kategori rasial
@@ -64,11 +131,129 @@ summary(data2009$Number.Tested)
 summary(data2010$Number.Tested)
 summary(data2011$Number.Tested)
 
-#melihat data yang berhasil (level 3 dan 4)
-summary(dataAsian$Level.3.4...1)
-summary(dataBlack$Level.3.4...1)
-summary(dataHispanic$Level.3.4...1)
-summary(dataWhite$Level.3.4...1)
+#melihat data yang berhasil (level 1)
+summary(dataAsian$Level.1..)
+summary(dataBlack$Level.1..)
+summary(dataHispanic$Level.1..)
+summary(dataWhite$Level.1..)
+
+#melihat data yang berhasil (level 2)
+summary(dataAsian$Level.2..)
+summary(dataBlack$Level.2..)
+summary(dataHispanic$Level.2..)
+summary(dataWhite$Level.2..)
+
+#melihat data yang berhasil (level 3)
+summary(dataAsian$Level.3..)
+summary(dataBlack$Level.3..)
+summary(dataHispanic$Level.3..)
+summary(dataWhite$Level.3..)
+
+#melihat data yang berhasil (level 4)
+summary(dataAsian$Level.4..)
+summary(dataBlack$Level.4..)
+summary(dataHispanic$Level.4..)
+summary(dataWhite$Level.4..)
+
+#melihat data yang berhasil (level 1) PERSENTASE
+summary(dataAsian$Level.1...1)
+summary(dataBlack$Level.1...1)
+summary(dataHispanic$Level.1...1)
+summary(dataWhite$Level.1...1)
+
+#melihat data yang berhasil (level 2) PERSENTASE
+summary(dataAsian$Level.2...1)
+summary(dataBlack$Level.2...1)
+summary(dataHispanic$Level.2...1)
+summary(dataWhite$Level.2...1)
+
+#melihat data yang berhasil (level 3) PERSENTASE
+summary(dataAsian$Level.3...1)
+summary(dataBlack$Level.3...1)
+summary(dataHispanic$Level.3...1)
+summary(dataWhite$Level.3...1)
+
+#melihat data yang berhasil (level 4) PERSENTASE
+summary(dataAsian$Level.4...1)
+summary(dataBlack$Level.4...1)
+summary(dataHispanic$Level.4...1)
+summary(dataWhite$Level.4...1)
+
+#kumpulkan data untuk per levelnya
+data_labelLevel <- c("Asian","Black","Hispanic","White")
+data_Level1 <- as.data.frame(rbind(mean(dataAsian$Level.1..)
+                                   ,mean(dataBlack$Level.1..)
+                                   ,mean(dataHispanic$Level.1..)
+                                   ,mean(dataWhite$Level.1..))) 
+
+data_Level2 <- as.data.frame(rbind(mean(dataAsian$Level.2..)
+                                   ,mean(dataBlack$Level.2..)
+                                   ,mean(dataHispanic$Level.2..)
+                                   ,mean(dataWhite$Level.2..)))  
+
+data_Level3 <-as.data.frame(rbind(mean(dataAsian$Level.3..)
+                                  ,mean(dataBlack$Level.3..)
+                                  ,mean(dataHispanic$Level.3..)
+                                  ,mean(dataWhite$Level.3..)))  
+
+data_Level4 <- as.data.frame(rbind(mean(dataAsian$Level.4..)
+                                   ,mean(dataBlack$Level.4..)
+                                   ,mean(dataHispanic$Level.4..)
+                                   ,mean(dataWhite$Level.4..)))
+
+#data level per kategori ras
+data_labelLevel2 <- c("Level 1","Level 2","Level 3","Level 4")
+data_AllLevelAsia <- as.data.frame(rbind(mean(dataAsian$Level.1..)
+                                              ,mean(dataAsian$Level.2..)
+                                              ,mean(dataAsian$Level.3..)
+                                              ,mean(dataAsian$Level.4..)))
+
+data_AllLevelBlack <- as.data.frame(rbind(mean(dataBlack$Level.1..)
+                                         ,mean(dataBlack$Level.2..)
+                                         ,mean(dataBlack$Level.3..)
+                                         ,mean(dataBlack$Level.4..)))
+
+data_AllLevelHispanic <- as.data.frame(rbind(mean(dataHispanic$Level.1..)
+                                         ,mean(dataHispanic$Level.2..)
+                                         ,mean(dataHispanic$Level.3..)
+                                         ,mean(dataHispanic$Level.4..)))
+
+data_AllLevelWhite <- as.data.frame(rbind(mean(dataWhite$Level.1..)
+                                         ,mean(dataWhite$Level.2..)
+                                         ,mean(dataWhite$Level.3..)
+                                         ,mean(dataWhite$Level.4..)))
+
+ggplot(data_AllLevelAsia, aes(x = "", y = V1,fill=data_labelLevel2))+
+  geom_bar(stat = "identity", width = 1)+
+  ggtitle("Pie Chart Hasil Tes Matematika Kategori Asian")+
+  guides(fill=guide_legend("Level"))+
+  coord_polar("y",start=0)+
+  theme_void()+
+  scale_fill_brewer(palette="Set1")
+
+ggplot(data_AllLevelBlack, aes(x = "", y = V1,fill=data_labelLevel2))+
+  geom_bar(stat = "identity", width = 1)+
+  ggtitle("Pie Chart Hasil Tes Matematika Kategori Black")+
+  guides(fill=guide_legend("Level"))+
+  coord_polar("y",start=0)+
+  theme_void()+
+  scale_fill_brewer(palette="Set1")
+
+ggplot(data_AllLevelHispanic, aes(x = "", y = V1,fill=data_labelLevel2))+
+  geom_bar(stat = "identity", width = 1)+
+  ggtitle("Pie Chart Hasil Tes Matematika Kategori Hispanic")+
+  guides(fill=guide_legend("Level"))+
+  coord_polar("y",start=0)+
+  theme_void()+
+  scale_fill_brewer(palette="Set1")
+
+ggplot(data_AllLevelWhite, aes(x = "", y = V1,fill=data_labelLevel2))+
+  geom_bar(stat = "identity", width = 1)+
+  ggtitle("Pie Chart Hasil Tes Matematika Kategori White")+
+  guides(fill=guide_legend("Level"))+
+  coord_polar("y",start=0)+
+  theme_void()+
+  scale_fill_brewer(palette="Set1")
 
 #merge all data Category AVG
 df_mergedCategoryAVG <- do.call("rbind", list(df_allAsianAverage,df_allBlackAverage,df_allHispanicAverage,df_allWhiteAverage))
