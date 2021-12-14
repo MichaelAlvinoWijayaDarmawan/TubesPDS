@@ -85,6 +85,7 @@ plt.show()
 df_grades = df[(df.Grade != "All Grades")]
 df_grades_asian = df_grades[(df_grades.Category == "Asian")]
 
+#Per Year
 grades_2006_asian = df_grades_asian[(df_grades_asian.Year == 2006)]
 grades_2007_asian = df_grades_asian[(df_grades_asian.Year == 2007)]
 grades_2008_asian = df_grades_asian[(df_grades_asian.Year == 2008)]
@@ -92,6 +93,7 @@ grades_2009_asian = df_grades_asian[(df_grades_asian.Year == 2009)]
 grades_2010_asian = df_grades_asian[(df_grades_asian.Year == 2010)]
 grades_2011_asian = df_grades_asian[(df_grades_asian.Year == 2011)]
 
+#Per Grade
 grade_3 = df_grades_asian[(df_grades_asian.Grade == '3')]
 grade_4 = df_grades_asian[(df_grades_asian.Grade == '4')]
 grade_5 = df_grades_asian[(df_grades_asian.Grade == '5')]
@@ -122,7 +124,7 @@ plt.ylabel('Mean Scale Score')
 plt.show()
 
 
-
+#Barplot Grade Asian ~ Mean Scale Score
 #Barplot Grade 3 Asian
 plt.bar(grade_3.Year,grade_3.Mean_Scale_Score, label = "Grade 3")
 plt.title('Grade 3 per Year ~ Mean Scale Score ~ Asian')
@@ -177,4 +179,253 @@ plt.title('All Grades per Year ~ Mean Scale Score ~ Asian')
 plt.xlabel('Year')
 plt.ylabel('Mean Scale Score')
 plt.ylim((680, 708)) 
+plt.show()
+
+#Barplot AllGrades~AllCategory~AllYear~Mean
+mean_category=pd.DataFrame(df_allgrades.groupby('Category')['Number_Tested'].mean())
+mean_category = mean_category.assign(Cat=["Asian", "Black", "Hispanic", "White"])
+for col in ['Cat']:
+    mean_category[col] = mean_category[col].astype('category')
+mean_category.dtypes
+
+plt.bar(mean_category.Cat, mean_category.Number_Tested, label = "All Grades")
+plt.title('All Grades~All Year per Category')
+plt.xlabel('Category')
+plt.ylabel('Mean Number Tested')
+plt.show()
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#Boxplot
+sns.boxplot(df_grades_asian.Category=="Asian", df_grades.Level_4_P)
+plt.title('All Grades per Year ~ Level_4_P')
+plt.show()
+
+#Lineplot Asian ~ Level 4
+plt.plot(grades_2006_asian.Grade, grades_2006_asian.Level_4_P, label = "2006")
+plt.plot(grades_2007_asian.Grade, grades_2007_asian.Level_4_P, label = "2007")
+plt.plot(grades_2008_asian.Grade, grades_2008_asian.Level_4_P, label = "2008")
+plt.plot(grades_2009_asian.Grade, grades_2009_asian.Level_4_P, label = "2009")
+plt.plot(grades_2010_asian.Grade, grades_2010_asian.Level_4_P, label = "2010")
+plt.plot(grades_2011_asian.Grade, grades_2011_asian.Level_4_P, label = "2011")
+plt.legend()
+plt.title('Grades per Year ~ Number Tested ~ Asian')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.show()
+
+
+#Bar Plot  Asian ~ Level 4 & Number tested
+
+plt.bar(grades_2006_asian.Grade,grades_2006_asian.Level_4_P, label = "2006")
+plt.title('Grades ~ Level 4 ~ 2006')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.ylim((20,70)) 
+plt.show()
+
+plt.bar(grades_2006_asian.Grade,grades_2006_asian.Number_Tested, label = "2006")
+plt.title('Grades ~ Number Tested ~ 2006')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.ylim((9200,10500)) 
+plt.show()
+
+#Line Plot
+plt.plot(grades_2006_asian.Grade, grades_2006_asian.Level_4_P, label = "2006")
+plt.title('Grades ~ Level 4 ~ 2006')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.show()
+
+plt.plot(grades_2006_asian.Grade, grades_2006_asian.Number_Tested, label = "2006")
+plt.title('Grades ~ Number Tested ~ 2006')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.show()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+plt.bar(grades_2007_asian.Grade, grades_2007_asian.Level_4_P, label = "2007")
+plt.title('Grades ~ Level 4 ~ 2007')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.ylim((20,70)) 
+plt.show()
+
+plt.bar(grades_2007_asian.Grade,grades_2007_asian.Number_Tested, label = "2007")
+plt.title('Grades ~ Number Tested ~ 2007')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.ylim((9200,10500)) 
+plt.show()
+
+#Line Plot
+plt.plot(grades_2007_asian.Grade, grades_2007_asian.Level_4_P, label = "2007")
+plt.title('Grades ~ Level 4 ~ 2007')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.show()
+
+plt.plot(grades_2007_asian.Grade, grades_2007_asian.Number_Tested, label = "2007")
+plt.title('Grades ~ Number Tested ~ 2007')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.show()
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+plt.bar(grades_2008_asian.Grade, grades_2008_asian.Level_4_P, label = "2008")
+plt.title('Grades ~ Level 4 ~ 2008')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.ylim((20,70)) 
+plt.show()
+
+plt.bar(grades_2008_asian.Grade,grades_2008_asian.Number_Tested, label = "2008")
+plt.title('Grades ~ Number Tested ~ 2008')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.ylim((9200,10500)) 
+plt.show()
+
+#Line Plot
+plt.plot(grades_2008_asian.Grade, grades_2008_asian.Level_4_P, label = "2008")
+plt.title('Grades ~ Level 4 ~ 2008')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.show()
+
+plt.plot(grades_2008_asian.Grade, grades_2008_asian.Number_Tested, label = "2008")
+plt.title('Grades ~ Number Tested ~ 2008')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.show()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+plt.bar(grades_2009_asian.Grade, grades_2009_asian.Level_4_P, label = "2009")
+plt.title('Grades ~ Level 4 ~ 2009')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.ylim((20,70)) 
+plt.show()
+
+plt.bar(grades_2009_asian.Grade,grades_2009_asian.Number_Tested, label = "2009")
+plt.title('Grades ~ Number Tested ~ 2009')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.ylim((9200,10500)) 
+plt.show()
+
+#Line Plot
+plt.plot(grades_2009_asian.Grade, grades_2009_asian.Level_4_P, label = "2009")
+plt.title('Grades ~ Level 4 ~ 2009')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.show()
+
+plt.plot(grades_2009_asian.Grade, grades_2009_asian.Number_Tested, label = "2009")
+plt.title('Grades ~ Number Tested ~ 2009')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.show()
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+plt.bar(grades_2010_asian.Grade, grades_2010_asian.Level_4_P, label = "2010")
+plt.title('Grades ~ Level 4 ~ 2010')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.ylim((20,70)) 
+plt.show()
+
+plt.bar(grades_2010_asian.Grade,grades_2010_asian.Number_Tested, label = "2010")
+plt.title('Grades ~ Number Tested ~ 2010')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.ylim((9200,10500)) 
+plt.show()
+
+#Line Plot
+plt.plot(grades_2010_asian.Grade, grades_2010_asian.Level_4_P, label = "2010")
+plt.title('Grades ~ Level 4 ~ 2010')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.show()
+
+plt.plot(grades_2010_asian.Grade, grades_2010_asian.Number_Tested, label = "2010")
+plt.title('Grades ~ Number Tested ~ 2010')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.show()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+plt.bar(grades_2011_asian.Grade, grades_2011_asian.Level_4_P, label = "2011")
+plt.title('Grades ~ Level 4 ~ 2011')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.ylim((20,70)) 
+plt.show()
+
+plt.bar(grades_2011_asian.Grade,grades_2011_asian.Number_Tested, label = "2011")
+plt.title('Grades ~ Number Tested ~ 2011')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.ylim((9200,10500)) 
+plt.show()
+
+#Line Plot
+plt.plot(grades_2011_asian.Grade, grades_2011_asian.Level_4_P, label = "2011")
+plt.title('Grades ~ Level 4 ~ 2011')
+plt.xlabel('Grade')
+plt.ylabel('Level 4 Percentage')
+plt.show()
+
+plt.plot(grades_2011_asian.Grade, grades_2011_asian.Number_Tested, label = "2011")
+plt.title('Grades ~ Number Tested ~ 2011')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.show()
+
+#All grades
+
+plt.plot(grade_3.Year, grade_3.Number_Tested, label = "Grade 3")
+plt.plot(grade_4.Year, grade_4.Number_Tested, label = "Grade 4")
+plt.plot(grade_5.Year, grade_5.Number_Tested, label = "Grade 5")
+plt.plot(grade_6.Year, grade_6.Number_Tested, label = "Grade 6")
+plt.plot(grade_7.Year, grade_7.Number_Tested, label = "Grade 7")
+plt.plot(grade_8.Year, grade_8.Number_Tested, label = "Grade 8")
+plt.legend()
+plt.title('Grades ~ Number Tested ~ All Year')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.show()
+
+plt.plot(grade_3.Year, grade_3.Level_4_P, label = "Grade 3")
+plt.plot(grade_4.Year, grade_4.Level_4_P, label = "Grade 4")
+plt.plot(grade_5.Year, grade_5.Level_4_P, label = "Grade 5")
+plt.plot(grade_6.Year, grade_6.Level_4_P, label = "Grade 6")
+plt.plot(grade_7.Year, grade_7.Level_4_P, label = "Grade 7")
+plt.plot(grade_8.Year, grade_8.Level_4_P, label = "Grade 8")
+plt.legend()
+plt.title('Grades ~ Level_4_P ~ All Year')
+plt.xlabel('Grade')
+plt.ylabel('Level_4_P')
+plt.show()
+
+
+plt.plot(grade_3.Year, grade_3.Number_Tested, label = "Grade 3")
+plt.legend()
+plt.title('Grades ~ Number Tested ~ All Year')
+plt.xlabel('Grade')
+plt.ylabel('Number Tested')
+plt.show()
+
+
+plt.plot(grade_3.Year, grade_3.Level_4_P, label = "Grade 3")
+plt.legend()
+plt.title('Grades ~ Level_4_P ~ All Year')
+plt.xlabel('Grade')
+plt.ylabel('Level_4_P')
 plt.show()
